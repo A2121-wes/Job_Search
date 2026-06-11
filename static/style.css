@@ -1,0 +1,220 @@
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  margin: 0;
+  background: #f6f7f9;
+  color: #1a1a1a;
+}
+header {
+  background: #1f2937;
+  color: white;
+  padding: 1rem 1.5rem;
+}
+header h1 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.4rem;
+}
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.toolbar input[type="text"] {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  min-width: 240px;
+}
+.toolbar select, .toolbar button {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+.toolbar button {
+  background: #2563eb;
+  color: white;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+.button-link {
+  background: #374151;
+  color: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.result-count {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  margin-left: auto;
+}
+main {
+  padding: 1rem 1.5rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+}
+th {
+  background: #e5e7eb;
+  position: sticky;
+  top: 0;
+}
+tr.inactive {
+  opacity: 0.5;
+}
+.score {
+  font-weight: bold;
+  cursor: help;
+}
+.tag {
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background: #e0e7ff;
+  color: #3730a3;
+}
+.tag-research { background: #dcfce7; color: #166534; }
+.tag-startup { background: #fef3c7; color: #92400e; }
+.tag-new_grad { background: #fce7f3; color: #9d174d; }
+
+.fit {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: help;
+  white-space: nowrap;
+}
+.fit-strong-fit { background: #dcfce7; color: #166534; }
+.fit-target { background: #fef9c3; color: #854d0e; }
+.fit-reach { background: #fee2e2; color: #991b1b; }
+
+.disclaimer {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 0.6rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Skills page */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.skill-card {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+.skill-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.skill-level-label {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+.skill-bar-track {
+  position: relative;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 5px;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+.skill-bar-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.6);
+}
+.level-1 { background: #f87171; }
+.level-2 { background: #fb923c; }
+.level-3 { background: #facc15; }
+.level-4 { background: #4ade80; }
+.level-5 { background: #22c55e; }
+.skill-evidence, .skill-improve {
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+  color: #374151;
+}
+.nav-link {
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.link-button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  padding: 0;
+}
+footer {
+  padding: 1rem 1.5rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 500px;
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.add-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+.add-form input, .add-form select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+.add-form button {
+  padding: 0.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

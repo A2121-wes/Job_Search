@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Posting</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Add a research / startup posting</h1>
+    <p><a href="{{ url_for('index') }}">&larr; back to dashboard</a></p>
+  </header>
+  <main>
+    <form method="post" class="add-form">
+      <label>Title
+        <input type="text" name="title" required>
+      </label>
+      <label>Company / Lab
+        <input type="text" name="company" required>
+      </label>
+      <label>Type
+        <select name="listing_type">
+          <option value="research">Undergrad Research</option>
+          <option value="startup">Startup</option>
+          <option value="internship">Internship / Co-op</option>
+          <option value="new_grad">New Grad</option>
+        </select>
+      </label>
+      <label>Category (e.g. AI/ML, Web Dev)
+        <input type="text" name="category">
+      </label>
+      <label>Locations (comma-separated)
+        <input type="text" name="locations" placeholder="Toronto, ON, Remote">
+      </label>
+      <label>URL
+        <input type="url" name="url" placeholder="https://...">
+      </label>
+      <button type="submit">Add posting</button>
+    </form>
+  </main>
+</body>
+</html>

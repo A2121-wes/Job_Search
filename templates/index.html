@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Job Search Dashboard</h1>
+    <p><a class="nav-link" href="{{ url_for('skills') }}">View skills self-assessment &rarr;</a></p>
+    <form class="toolbar" method="get" action="{{ url_for('index') }}">
+      <input type="text" name="q" placeholder="Search title, company, location..." value="{{ query }}">
+      <select name="type">
+        <option value="all" {% if listing_type == 'all' %}selected{% endif %}>All</option>
+        <option value="internship" {% if listing_type == 'internship' %}selected{% endif %}>Internship / Co-op</option>
+        <option value="new_grad" {% if listing_type == 'new_grad' %}selected{% endif %}>New Grad</option>
+        <option value="research" {% if listing_type == 'research' %}selected{% endif %}>Undergrad Research</option>
+        <option value="startup" {% if listing_type == 'startup' %}selected{% endif %}>Startup</option>
+      </select>
+      <select name="fit">
+        <option value="all" {% if fit_tier == 'all' %}selected{% endif %}>All fit tiers</option>
+        <option value="Strong Fit" {% if fit_tier == 'Strong Fit' %}selected{% endif %}>Strong Fit</option>
+        <option value="Target" {% if fit_tier == 'Target' %}selected{% endif %}>Target</option>
+        <option value="Reach" {% if fit_tier == 'Reach' %}selected{% endif %}>Reach</option>
+      </select>
+      <label class="checkbox">
+        <input type="checkbox" name="show_inactive" value="1" {% if show_inactive %}checked{% endif %}>
+        Show inactive
+      </label>
+      <button type="submit">Filter</button>
+    </form>
+    <div class="toolbar">
+      <form method="post" action="{{ url_for('refresh') }}">
+        <button type="submit">Refresh listings</button>
+      </form>
+      <a class="button-link" href="{{ url_for('add_job') }}">+ Add research / startup posting</a>
+      <span class="result-count">{{ total }} results (showing top {{ jobs|length }})</span>
+    </div>
+  </header>
+
+  <main>
+    <p class="disclaimer">
+      Fit tiers and degree requirements come from a community-maintained
+      dataset and can be wrong or out of date. Always check the actual job
+      posting (especially degree/education requirements) before applying.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Score</th>
+          <th>Fit</th>
+          <th>Title</th>
+          <th>Company</th>
+          <th>Category</th>
+          <th>Location(s)</th>
+          <th>Type</th>
+          <th>Sponsorship</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr class="{% if not job.active %}inactive{% endif %}">
+          <td class="score" title="{% for k, v in job.breakdown.items() %}{{ k }}: {{ v }} | {% endfor %}">
+            {{ job.score }}
+          </td>
+          <td>
+            <span class="fit fit-{{ job.fit_tier | replace(' ', '-') | lower }}" title="{{ job.fit_reason }}">
+              {{ job.fit_tier }}
+            </span>
+          </td>
+          <td><a href="{{ job.url }}" target="_blank" rel="noopener">{{ job.title }}</a></td>
+          <td>{{ job.company }}</td>
+          <td>{{ job.category }}</td>
+          <td>{{ job.locations | join(', ') }}</td>
+          <td><span class="tag tag-{{ job.listing_type }}">{{ job.listing_type }}</span></td>
+          <td>{{ job.sponsorship }}</td>
+          <td>{% if job.active %}Active{% else %}Inactive{% endif %}</td>
+          <td>
+            {% if job.source == 'manual' %}
+            <form method="post" action="{{ url_for('remove_job', job_id=job.id) }}">
+              <button type="submit" class="link-button">remove</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="10">No jobs found. Try refreshing or widening your filters.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>Data sources:</p>
+    <ul>
+      {% for s in cache_status %}
+      <li>{{ s.name }} —
+        {% if s.last_fetched %}
+          last fetched {{ ((now - s.last_fetched) / 60) | round(1) }} min ago
+        {% else %}
+          not yet fetched
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <p>Tune ranking in <code>config/preferences.yaml</code> and add resume keywords in <code>config/resume.txt</code>, then refresh the page.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+# Edit this file to tune how jobs are scored and ranked.
+#
+# Ranking philosophy:
+#  1. Jobs are ordered by "ease of getting in" for YOU specifically -- i.e.
+#     how good a fit your background/skills/clearance are, and how
+#     competitive the company/role typically is. Higher score = easier
+#     for you to land.
+#  2. Location is NOT used in scoring at all.
+
+# Skills/keywords pulled from your resume. A match in the job title/category
+# adds these points -- reflects how directly your experience applies.
+skill_keywords:
+  python: 5
+  swift: 5
+  swiftui: 5
+  ios: 4
+  javascript: 4
+  c++: 4
+  embedded: 6
+  fpga: 8
+  verilog: 8
+  vivado: 6
+  pytorch: 6
+  machine learning: 6
+  ml: 4
+  lidar: 8
+  geospatial: 6
+  remote sensing: 6
+  signal: 4
+  rf: 5
+  radar: 6
+  satellite: 6
+  network: 3
+  cybersecurity: 6
+  security: 4
+  hardware: 5
+  electrical: 5
+  firmware: 6
+  defense: 5
+  aerospace: 5
+
+# Mentions of security clearance in a posting are a HUGE advantage for you
+# (you hold an active Secret clearance via the Army Reserve, and most
+# applicants don't have one). Big bonus when present.
+clearance_keywords:
+  security clearance: 20
+  secret clearance: 25
+  "clearance required": 25
+  "must have an active secret": 30
+  "ts/sci": 15
+  "active clearance": 25
+
+# Degree requirements vs. ease of qualifying. You're a community college
+# student (Associate's-level / transfer-track), so jobs that don't demand a
+# completed Bachelor's are easier to qualify for.
+acceptable_degrees:
+  - "Associate's"
+  - "No Degree"
+  - "Bachelor's"
+
+# Penalty applied when a job lists degree requirements that don't include
+# anything in acceptable_degrees (e.g. Master's/PhD only) -- harder for you.
+degree_mismatch_penalty: -8
+
+# Large, extremely competitive companies -> harder to get an offer from,
+# so they get a penalty (lowers their "ease" rank). Substring match on
+# company name, case-insensitive.
+competitive_companies:
+  google: -8
+  meta: -8
+  openai: -8
+  anthropic: -8
+  apple: -7
+  microsoft: -5
+  amazon: -4
+  nvidia: -5
+  netflix: -8
+  jane street: -8
+  citadel: -8
+
+# Companies to filter out entirely (substring match, case-insensitive).
+excluded_companies: []
+
+# Categories to include from the curated internship/new-grad lists.
+# Leave empty to include all.
+include_categories: []
+
+# Extra weight per overlapping keyword between your resume (config/resume.txt)
+# and the job's title/category, beyond the skill_keywords above.
+resume_match_weight: 1.5
+
+# How many points to subtract per day since the job was posted (decay).
+# Older postings are likely more competitive / further along, so slightly
+# lower priority.
+recency_decay_per_day: 0.3
+
+# --- Fit tier (honest assessment, separate from the ranking score) ---
+# Classifies each job as "Strong Fit", "Target", or "Reach" based on how
+# competitive it realistically is for a community college EE student with
+# your specific background (Army Reserve Secret clearance, FPGA/Verilog
+# research apprenticeship, NCALM LiDAR/ML research, Swift app dev).
+
+# Companies/labs that mostly hire from top-tier PhD pipelines for research
+# roles -- a "Reach" unless the posting also matches a strong_fit_keyword
+# (i.e. defense/hardware niche where your clearance + FPGA background
+# counters the usual PhD-only filter).
+reach_companies:
+  - openai
+  - anthropic
+  - deepmind
+  - google deepmind
+  - meta ai
+  - "fair"
+  - jane street
+  - citadel
+  - two sigma
+  - de shaw
+
+# Title/category keywords that line up directly with your differentiators
+# (clearance, Army comms, FPGA/Verilog research, hardware/RF/defense).
+# A match here pulls a job into "Strong Fit" even if the company would
+# otherwise be a reach.
+strong_fit_keywords:
+  - fpga
+  - verilog
+  - vivado
+  - clearance
+  - secret
+  - embedded
+  - radio frequency
+  - " rf "
+  - radar
+  - satellite
+  - defense
+  - signal
+  - lidar
+  - aerospace
+  - tactical
+  - geospatial
